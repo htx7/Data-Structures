@@ -169,12 +169,34 @@ void recursiveSelectionSort(int arr[], int l, int r, sortperf_t * s)
 
 // selection sort
 void selectionSort(int arr[], int l, int r, sortperf_t * s) { 
-  return;
+    int i,j,min;
+    inccalls(s,1);
+    for (i = l; i <= r ; i++){
+        min = i;
+        for (j = i + 1; j <= r; j++){
+            inccmp(s,1);
+            if(arr[j] < arr[min]){
+                min = j;
+            }
+        }
+        swap(&arr[min], &arr[i], s);
+    }
 }
 
 //insertion sort
 void insertionSort(int v[], int l, int r, sortperf_t * s) {
-  return;
+    int i,j,aux;
+    inccalls(s,1);
+    for (i = 1; i <= r; i++){
+        aux = v[i];
+        j = i - 1;
+        while ((j >= 0) && aux < v[j]){
+            inccmp(s,2);
+            v[j + 1] =  v[j];
+            j--;
+        }
+        v[j + 1] = aux;
+    }
 }
 
 // median of 3 integers
@@ -312,6 +334,8 @@ int main (int argc, char ** argv){
   initVector(vet, opt.size);
   vet[opt.size] = vet[0]; // for heapsort
   //if (opt.size < 100) printVector(vet, opt.size);
+  fprintf(stderr,"array before sorting: ");
+  printVector(vet, opt.size);
 
   retp = clock_gettime(CLOCK_MONOTONIC, &inittp);
   
@@ -347,6 +371,8 @@ int main (int argc, char ** argv){
 
 
   //if (opt.size<100) printVector(vet, opt.size);
+  fprintf(stderr,"array after sorting: ");
+  printVector(vet, opt.size);
 
   // print stats
   sprintf(pref,"alg %s seed %d size %d time %ld.%.9ld",
