@@ -139,6 +139,16 @@ void swap(int *xp, int *yp, sortperf_t *s){
 
 // shellsort
 void shellSort(int *A, int n, sortperf_t * s) {
+  for(int h = n / 2; h > 0; h /= 2){
+    for(int i = h; i < n; i += 1){
+      int temp = A[i];
+      int j;
+      for(j = i; j >= h && A[j - h] > temp; j -= h){
+        A[j] = A[j - h];
+      }
+      A[j] = temp;
+    }
+  }
 }
 
 
