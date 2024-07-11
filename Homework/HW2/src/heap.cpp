@@ -1,4 +1,4 @@
-#include "heap.hpp"
+#include "../include/heap.hpp"
 
 Heap::Heap(int maxsize){
     tamanho = 0;
@@ -37,4 +37,10 @@ void Heap::Inserir(int x){
     }
 
     tamanho += 1;
+}
+
+int Heap::Remover(){
+    int valorRemovido = data[0];
+
+    return valorRemovido;
 }
