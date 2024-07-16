@@ -21,7 +21,9 @@ int main(){
     }
 
     for(int i = 0; i < tamanhoDesejado; i++){
-        std::cout << heap.Remover() << " ";
+        std::cout << heap.Remover();
+        if (i < tamanhoDesejado - 1) std::cout << " ";
+        else std::cout << "\n";
     }
 
     return 0;

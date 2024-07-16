@@ -22,25 +22,58 @@ int Heap::GetSucessorEsq(int i){
 }
 
 void Heap::Inserir(int x){
-    int posicaoAtual, posicaoAncestral;
     data[tamanho] = x;
-    posicaoAtual = tamanho;
-    posicaoAncestral = (posicaoAtual - 1) / 2;
+    tamanho += 1;
 
-    while(data[posicaoAtual] > data[posicaoAncestral]){
+    int posicaoAtual = tamanho;
+    int posicaoAncestral = GetAncestral(posicaoAtual);
+
+    while(data[posicaoAncestral] > data[posicaoAtual]){
         int aux = data[posicaoAtual];
         data[posicaoAtual] = data[posicaoAncestral];
         data[posicaoAncestral] = aux;
 
         posicaoAtual = posicaoAncestral;
-        posicaoAncestral = (posicaoAtual - 1) / 2;
+        posicaoAncestral = GetAncestral(posicaoAtual);
     }
 
-    tamanho += 1;
+   
 }
+/*
+int Heap::Remover(int x){
+    return data[x];
+}
+*/
 
 int Heap::Remover(){
-    int valorRemovido = data[0];
+    int raiz = data[0];
+    data[0] = data[tamanho - 1];
+    tamanho--;
+    int i = 0;
 
-    return valorRemovido;
+    while(i < tamanho - 1){
+        int menor = i;
+        int iEsquerdo = GetSucessorEsq(i);
+        int iDireita = GetSucessorDir(i);
+
+        if (iEsquerdo < tamanho && data[iEsquerdo] < data[menor]){
+            menor = iEsquerdo;
+        }
+        if (iDireita < tamanho && data[iDireita] < data[menor]){
+            menor = iDireita;
+        }
+
+        if (menor != i){
+            int aux = data[i];
+            data[i] = data[menor];
+            data[menor] = aux;
+            i = menor;
+        }
+        else {
+            break;
+        }
+
+    }
+    return raiz;
 }
+
